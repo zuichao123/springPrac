@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 无参构造方式 -->
+    <bean id="stu" class="com.sunjian.entity.Student">
+        <property name="id" value="1"></property>
+        <!--<property name="name" value="sunjian"></property>-->
+        <!--特殊字符处理-->
+        <property name="name">
+            <value>
+                <![CDATA[<孙健>]]>
+            </value>
+        </property>
+        <property name="age" value="32"></property>
+    </bean>
+
+    <!-- 有参构造方式 1-->
+    <bean id="stu_1" class="com.sunjian.entity.Student2">
+        <constructor-arg index="0" value="1"></constructor-arg>
+        <constructor-arg index="1" value="孙健"></constructor-arg>
+        <constructor-arg index="2" value="31"></constructor-arg>
+    </bean>
+    <!-- 有参构造方式 2 常用 -->
+    <bean id="stu_2" class="com.sunjian.entity.Student2">
+        <constructor-arg name="id" value="1"></constructor-arg>
+        <constructor-arg name="name" value="孙健"></constructor-arg>
+        <constructor-arg name="age" value="32"></constructor-arg>
+    </bean>
+    <!-- 有参构造方式 3-->
+    <bean id="stu_3" class="com.sunjian.entity.Student2">
+        <constructor-arg value="1"></constructor-arg>
+        <constructor-arg value="孙健"></constructor-arg>
+        <constructor-arg value="33"></constructor-arg>
+    </bean>
+
+    <!-- 两个bean的级联方式 一对一-->
+    <bean id="stu3" class="com.sunjian.entity.Student3">
+        <property name="id" value="1"></property>
+        <property name="age" value="33"></property>
+        <property name="name" value="sunjian stu3"></property>
+        <property name="student4" ref="stu4"></property>
+    </bean>
+    <bean id="stu4" class="com.sunjian.entity.Student4">
+        <property name="id" value="1"></property>
+        <property name="age" value="34"></property>
+        <property name="name" value="sunjian stu4"></property>
+    </bean>
+
+    <!-- bean对象之间的集合注入 一对多-->
+    <bean id="classes" class="com.sunjian.entity.Classes">
+        <property name="id" value="1"></property>
+        <property name="name" value="243班"></property>
+        <property name="students">
+            <list>
+                <ref bean="stus1"></ref>
+                <ref bean="stus2"></ref>
+                <ref bean="stus3"></ref>
+            </list>
+        </property>
+    </bean>
+    <bean id="stus1" class="com.sunjian.entity.Students">
+        <property name="id" value="1"></property>
+        <property name="name" value="张三"></property>
+        <property name="age" value="30"></property>
+    </bean>
+    <bean id="stus2" class="com.sunjian.entity.Students">
+        <property name="id" value="2"></property>
+        <property name="name" value="李四"></property>
+        <property name="age" value="31"></property>
+    </bean>
+    <bean id="stus3" class="com.sunjian.entity.Students">
+        <property name="id" value="3"></property>
+        <property name="name" value="赵四"></property>
+        <property name="age" value="32"></property>
+    </bean>
+
+
+
+</beans>
